@@ -1,7 +1,7 @@
 from spack import AutotoolsPackage, depends_on, version
 
 
-class GenieGenerator(AutotoolsPackage):
+class Genie(AutotoolsPackage):
     """Genie Generator."""
 
     homepage = "https://www.genie-mc.org"

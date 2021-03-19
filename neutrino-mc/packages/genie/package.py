@@ -22,100 +22,104 @@ class Genie(Package):  # Genie doesn"t use Autotools
 
     version("master", branch="master")
     version(
-        "3_00_06",
+        "3.0.6",
         sha256="ab56ea85d0c1d09029254365bfe75a1427effa717389753b9e0c1b6c2eaa5eaf",
+        url="https://github.com/GENIE-MC/Generator/archive/R-3_00_06.tar.gz",
     )
     version(
-        "3_00_04",
+        "3.0.4",
         sha256="53f034618fef9f7f0e17d1c4ed72743e4bba590e824b795177a1a8a8486c861e",
+        url="https://github.com/GENIE-MC/Generator/archive/R-3_00_04.tar.gz",
     )
     version(
-        "3_00_02",
+        "3.0.2",
         sha256="34d6c37017b2387c781aea7bc727a0aac0ef45d6b3f3982cc6f3fc82493f65c3",
+        url="https://github.com/GENIE-MC/Generator/archive/R-3_00_02.tar.gz",
     )
     version(
-        "3_0_0b4",
-        sha256="41100dd5141a7e2c934faaaf22f244deda08ab7f03745976dfed0f31e751e24e",
-    )
-    version(
-        "3_0_0b3",
-        sha256="96b849d426f261a858f5483f1ef576cc15f5303bc9c217a194de2500fb59cc56",
-    )
-    version(
-        "3_0_0b2",
-        sha256="2884f5cb80467d3a8c11800421c1d1507e9374a4ba2fbd654d474f2676be28ba",
-    )
-    version(
-        "3_0_0b1",
-        sha256="e870146bfa674235c3713a91decf599d2e90b4202f8b277bf49b04089ee432c1",
-    )
-    version(
-        "3_00_00",
+        "3.0.0",
         sha256="3953c7d9f1f832dd32dfbc0b9260be59431206c204aec6ab0aa68c01176f2ae6",
+        url="https://github.com/GENIE-MC/Generator/archive/R-3_00_00.tar.gz",
     )
     version(
-        "2_12_10",
+        "2.12.10",
         sha256="c8762db3dcc490f80f8a61268f5b964d4d35b80134b622e89fe2307a836f2a0b",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_12_10.tar.gz",
     )
     version(
-        "2_12_8",
+        "2.12.8",
         sha256="7ca169a8d9eda7267d28b76b2f3110552852f8eeae263a03cd5139caacebb4ea",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_12_8.tar.gz",
     )
     version(
-        "2_12_6",
+        "2.12.6",
         sha256="3b450c609875459798ec98e12cf671cc971cbb13345af6d75bd6278d422f3309",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_12_6.tar.gz",
     )
     version(
-        "2_12_4",
+        "2.12.4",
         sha256="19a4a1633b0847a9f16a44e0c74b9c224ca3bb93975aecf108603c22e807517b",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_12_4.tar.gz",
     )
     version(
-        "2_12_2",
+        "2.12.2",
         sha256="cbdc45a739878940dadcaaed575b5cad6b5e7035f29605045b1ca557e6faa6d1",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_12_2.tar.gz",
     )
     version(
-        "2_12_0",
+        "2.12.0",
         sha256="d2b01c80f38d269cb0296b3f2932798ef3f1d51bd130e81274fbfeeb381fac6b",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_12_0.tar.gz",
     )
     version(
-        "2_11_2",
+        "2.11.2",
         sha256="0f4c25d8ceb7513553671643c9cdac5aa98c40fc8594a5ecb25c077c6b36166e",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_11_2.tar.gz",
     )
     version(
-        "2_11_0",
+        "2.11.0",
         sha256="1ebe0eb65d797595413632f1cec1cb2621cb8e8d0384a2843799724a79b1d80c",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_11_0.tar.gz",
     )
     version(
-        "2_10_10",
+        "2.10.10",
         sha256="1dfaadcf1bbaf6e164b612f410c4399301e63497ad6a4891706b1787ac11a7a1",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_10_10.tar.gz",
     )
     version(
-        "2_10_8",
+        "2.10.8",
         sha256="4f6f5af2062e7c505b76e70547ac2ae304a9790c3e9b9592818d8aebeebc8398",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_10_8.tar.gz",
     )
     version(
-        "2_10_6",
+        "2.10.6",
         sha256="d00b4288c886f81459fb2967e539f30315d4385f82d1d3f4330298d313f9a176",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_10_6.tar.gz",
     )
     version(
-        "2_10_4",
+        "2.10.4",
         sha256="df909bf7e1a789ca01794995687da2af803769f0823273a4a3a31678d6d5b0f1",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_10_4.tar.gz",
     )
     version(
-        "2_10_2",
+        "2.10.2",
         sha256="6abe4e0cdb5e8f5beddf0ccdbebc94c175a9f72592b1cbbffe01b88ee3972bf9",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_10_2.tar.gz",
     )
     version(
-        "2_10_0",
+        "2.10.0",
         sha256="17bda900c996b6f4f10a7f6a3be94e56c3b8dcdeb2ef8865ca7f20c5fe725291",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_10_0.tar.gz",
     )
     version(
-        "2_9_0",
+        "2.9.0",
         sha256="8229beb73f65f5af86a77bf141acfbe4a8b68cba9d797aae083a929906f6f2a2",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_9_0.tar.gz",
     )
     version(
-        "2_8_6",
+        "2.8.6",
         sha256="310dc8e0d17a65e6b9773e398250703a3a6f94ceafe94f599ae0f7b3fecf7e6c",
+        url="https://github.com/GENIE-MC/Generator/archive/R-2_8_6.tar.gz",
     )
 
     depends_on("root+pythia6")

@@ -51,7 +51,7 @@ class Genie(Package):  # Genie doesn't use Autotools
             "--with-compiler=%s" % os.environ["CC"],
             "--with-lhapdf6-inc=%s" % spec["lhapdf"].prefix.include,
             "--with-lhapdf6-lib=%s" % spec["lhapdf"].prefix.lib,
-            "--with-libxml2-inc=%s" % spec["libxml2"].prefix.include,
+            "--with-libxml2-inc=%s/libxml2" % spec["libxml2"].prefix.include,
             "--with-libxml2-lib=%s" % spec["libxml2"].prefix.lib,
             "--with-log4cpp-inc=%s" % spec["log4cpp"].prefix.include,
             "--with-log4cpp-lib=%s" % spec["log4cpp"].prefix.lib,
@@ -66,7 +66,14 @@ class Genie(Package):  # Genie doesn't use Autotools
         make()  # noqa
 
     def install(self, spec, prefix):
+        # GENIE won't make these, it expects them to already exist
+        for dirname in ["bin", "lib", "include"]:
+            self.makedirs(os.sep.join((prefix, dirname)))
         make("install")  # noqa
+
+    def makedirs(self, path):
+        if not os.path.exists(path):
+            os.makedirs(path)
 
     def setup_build_environment(self, env):
         env.set("GENIE", self.stage.source_path)

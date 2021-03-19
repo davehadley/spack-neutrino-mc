@@ -1,7 +1,7 @@
 # from spack import AutotoolsPackage, depends_on, version
 import os
 
-from spack.directives import depends_on, patch, version
+from spack.directives import depends_on, patch, variant, version
 from spack.package import Package
 from spack.util.executable import Executable
 
@@ -22,7 +22,7 @@ class Genie(Package):  # Genie doesn't use Autotools
 
     version("master", branch="master")
     version(
-        "3_00_06",
+        "3.00.06",
         sha256="ab56ea85d0c1d09029254365bfe75a1427effa717389753b9e0c1b6c2eaa5eaf",
         preferred=True,
     )
@@ -36,6 +36,40 @@ class Genie(Package):  # Genie doesn't use Autotools
     depends_on("geant4")
 
     patch("genie_make_files.patch", level=0)
+
+    # Flags for GENIE's optional but disabled by default features
+    variant(
+        "vleextension",
+        default=False,
+        description="Enable GENIE very low energy (1 MeV - 100 MeV) extension",
+    )
+    variant(
+        "validationtools",
+        default=False,
+        description="GENIE physics model validation tools",
+    )
+    variant("test", default=False, description="Enable test programs")
+    variant(
+        "t2k", default=False, description="Enable Enables T2K-specific generation app"
+    )
+    variant(
+        "fnal", default=False, description="Enable Enables T2K-specific generation app"
+    )
+    variant(
+        "atmo",
+        default=False,
+        description="Enable GENIE Atmospheric neutrino event generation app",
+    )
+    variant(
+        "nucleondecay",
+        default=False,
+        description="Enable GENIE Nucleon decay event generation app",
+    )
+    variant(
+        "masterclass",
+        default=False,
+        description="Enable GENIE neutrino masterclass app",
+    )
 
     phases = ["configure", "build", "install"]
 
@@ -51,12 +85,28 @@ class Genie(Package):  # Genie doesn't use Autotools
             "--with-compiler=%s" % os.environ["CC"],
             "--with-lhapdf6-inc=%s" % spec["lhapdf"].prefix.include,
             "--with-lhapdf6-lib=%s" % spec["lhapdf"].prefix.lib,
-            "--with-libxml2-inc=%s/libxml2" % spec["libxml2"].prefix.include,
+            "--with-libxml2-inc=%s%slibxml2" % (spec["libxml2"].prefix.include, os.sep),
             "--with-libxml2-lib=%s" % spec["libxml2"].prefix.lib,
             "--with-log4cpp-inc=%s" % spec["log4cpp"].prefix.include,
             "--with-log4cpp-lib=%s" % spec["log4cpp"].prefix.lib,
             "--with-pythia6-lib=%s" % spec["pythia6"].prefix.lib,
         ]
+        if "+vleextension" in self.spec:
+            args += ["--enable-vle-extension"]
+        if "+validationtools" in self.spec:
+            args += ["--enable-validation-tools"]
+        if "+test" in self.spec:
+            args += ["--enable-test"]
+        if "+t2k" in self.spec:
+            args += ["--enable-t2k"]
+        if "+fnal" in self.spec:
+            args += ["--enable-fnal"]
+        if "+atmo" in self.spec:
+            args += ["--enable-atmo"]
+        if "+nucleondecay" in self.spec:
+            args += ["--enable-nucleon-decay"]
+        if "+masterclass" in self.spec:
+            args += ["--enable-masterclass"]
         return args
 
     def build(self, spec, prefix):
@@ -66,10 +116,12 @@ class Genie(Package):  # Genie doesn't use Autotools
         make()  # noqa
 
     def install(self, spec, prefix):
-        # GENIE won't make these, it expects them to already exist
-        for dirname in ["bin", "lib", "include"]:
-            self.makedirs(os.sep.join((prefix, dirname)))
-        make("install")  # noqa
+        # GENIE make install support parallel jobs
+        make("install", parallel=False)  # noqa
+        # GENIE requires these files to be present at runtime, but doesn't install them
+        # so we must install them ourselves
+        install_tree("config", os.sep.join((prefix, "config")))  # noqa
+        install_tree("data", os.sep.join((prefix, "data")))  # noqa
 
     def makedirs(self, path):
         if not os.path.exists(path):
@@ -80,4 +132,5 @@ class Genie(Package):  # Genie doesn't use Autotools
         return super().setup_build_environment(env)
 
     def setup_run_environment(self, env):
+        env.set("GENIE", self.prefix)
         return super().setup_run_environment(env)

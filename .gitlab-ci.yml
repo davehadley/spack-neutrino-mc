@@ -5,6 +5,8 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
+  - echo "Install yum packages"
+  - yum install -y wget curl gcc gcc-c++ gcc-gfortran
   - echo "-- Working Directory"
   - pwd
   - echo "-- Directory Contents"

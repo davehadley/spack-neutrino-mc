@@ -17,11 +17,6 @@ before_script:
   - echo "-- Setup "
   - . spack/share/spack/setup-env.sh
 
-install_depedencies:
-  stage: setup
-  script:
-    
-
 build_genie:
   stage: build
   script:

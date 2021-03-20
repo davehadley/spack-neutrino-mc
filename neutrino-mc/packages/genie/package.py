@@ -131,7 +131,6 @@ class Genie(Package):  # Genie doesn"t use Autotools
     depends_on("log4cpp")
     depends_on("libxml2")
     depends_on("gsl")
-    depends_on("geant4")
 
     patch("genie_make_files.patch", level=0, when="@2.12:")
 

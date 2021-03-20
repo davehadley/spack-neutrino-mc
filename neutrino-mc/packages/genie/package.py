@@ -244,10 +244,11 @@ class Genie(Package):  # Genie doesn"t use Autotools
         env.set("GENIE", self.prefix)
         return super().setup_run_environment(env)
 
-    def _make(self, *args, parallel=True):
+    def _make(self, *args, **kwargs):
         # make is injected by build_environment:
         # https://spack.readthedocs.io/en/latest/spack.html#module-spack.build_environment
         # apparently this is considered more readable
+        parallel = kwargs.get("parallel", False)
         args = list(self._make_args) + list(args)
         make(*args, parallel=parallel)  # noqa
 

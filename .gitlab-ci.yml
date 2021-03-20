@@ -1,0 +1,32 @@
+image: alpine:3.7
+
+variables:
+  GENIE_VERSION: "3.0.6"
+
+before_script:
+  - echo "-- Installing apl packages"
+  - apk add --no-cache build-base python3 py3-pip 
+  - echo "-- Working Directory"
+  - pwd
+  - echo "-- Directory Contents"
+  - ls
+  - echo "-- Environment Variables"
+  - env
+  - echo "-- Python"
+  - which python
+  - echo "-- Setup "
+  - . spack/share/spack/setup-env.sh
+
+install_depedencies:
+  stage: setup
+  script:
+    
+
+build_genie:
+  stage: build
+  script:
+    - spack install genie@${GENIE_VERSION}+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
+  parallel:
+    matrix:
+      - GENIE_VERSION: ["3.0.6", "2.12.10", "2.8.6"]
+

@@ -12,7 +12,7 @@ before_script:
   - echo "-- Directory Contents"
   - ls
   - echo "-- Setup Spack"
-  - export SPACK_ROOT=$(pwd)
+  - export SPACK_ROOT=$(pwd)/spack
   - ./install.sh
   - . spack/share/spack/setup-env.sh
   - echo "-- Environment Variables"

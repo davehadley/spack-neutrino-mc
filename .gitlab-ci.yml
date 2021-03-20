@@ -10,12 +10,10 @@ before_script:
   - pwd
   - echo "-- Directory Contents"
   - ls
-  - echo "-- Environment Variables"
-  - env
-  - echo "-- Python"
-  - which python
   - echo "-- Setup "
   - . spack/share/spack/setup-env.sh
+  - echo "-- Environment Variables"
+  - env
 
 build_genie:
   stage: build

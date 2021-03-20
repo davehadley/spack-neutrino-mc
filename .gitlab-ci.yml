@@ -6,7 +6,7 @@ variables:
 
 before_script:
   - echo "-- Installing apl packages"
-  - apk add --no-cache build-base python3 py3-pip bash
+  - apk add --no-cache build-base python3 py3-pip bash wget gnupg
   - echo "-- Working Directory"
   - pwd
   - echo "-- Directory Contents"

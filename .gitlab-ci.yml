@@ -1,12 +1,12 @@
-image: centos:7
+image: ubuntu:latest
 
 variables:
   GENIE_VERSION: "3.0.6"
   GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
-  - echo "Install yum packages"
-  - yum install -y wget curl gcc gcc-c++ gcc-gfortran
+  - echo "Install apt packages"
+  - apt-get update && apt install -y build-essential wget curl
   - echo "-- Working Directory"
   - pwd
   - echo "-- Directory Contents"

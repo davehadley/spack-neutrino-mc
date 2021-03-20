@@ -6,7 +6,7 @@ variables:
 
 before_script:
   - echo "Install apt packages"
-  - apt-get update && apt install -y build-essential wget curl python3
+  - apt-get update && apt install -y build-essential wget curl python3 gfortran 
   - echo "-- Working Directory"
   - pwd
   - echo "-- Directory Contents"

@@ -1,11 +1,5 @@
 image: centos:7
 
-only:
-  - merge_requests
-except:
-     variables:
-       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "develop"
-
 variables:
   GENIE_VERSION: "3.0.6"
   GIT_SUBMODULE_STRATEGY: recursive
@@ -30,4 +24,8 @@ build_genie:
   parallel:
     matrix:
       - GENIE_VERSION: ["3.0.6", "2.12.10", "2.8.6"]
-
+  only:
+    - merge_requests
+  except:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "develop"

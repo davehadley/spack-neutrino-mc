@@ -2,15 +2,17 @@ image: alpine:3.7
 
 variables:
   GENIE_VERSION: "3.0.6"
+  GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
   - echo "-- Installing apl packages"
-  - apk add --no-cache build-base python3 py3-pip 
+  - apk add --no-cache build-base python3 py3-pip bash
   - echo "-- Working Directory"
   - pwd
   - echo "-- Directory Contents"
   - ls
-  - echo "-- Setup "
+  - echo "-- Setup Spack"
+  - ./install.sh
   - . spack/share/spack/setup-env.sh
   - echo "-- Environment Variables"
   - env

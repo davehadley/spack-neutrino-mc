@@ -1,12 +1,16 @@
-image: alpine:3.7
+image: centos:7
+
+only:
+  - merge_requests
+except:
+     variables:
+       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "develop"
 
 variables:
   GENIE_VERSION: "3.0.6"
   GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
-  - echo "-- Installing apl packages"
-  - apk add --no-cache build-base python3 py3-pip bash wget gnupg curl
   - echo "-- Working Directory"
   - pwd
   - echo "-- Directory Contents"
@@ -20,6 +24,7 @@ before_script:
 
 build_genie:
   stage: build
+  timeout: 1d
   script:
     - spack install genie@${GENIE_VERSION}+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
   parallel:

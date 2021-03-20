@@ -132,6 +132,10 @@ class Genie(Package):  # Genie doesn"t use Autotools
     depends_on("libxml2")
     depends_on("gsl")
 
+    # GENIE does not actually require cmake, but root does.
+    # Spack's concretizer fails with "unsatisfiable constraint" if we don't add this.
+    depends_on("cmake@3:")
+
     patch("genie_make_files.patch", level=0, when="@2.12:")
 
     # Flags for GENIE"s optional but disabled by default features

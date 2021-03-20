@@ -191,6 +191,9 @@ class Genie(Package):  # Genie doesn"t use Autotools
             args += [
                 "--with-lhapdf-inc=%s" % spec["lhapdf5"].prefix.include,
                 "--with-lhapdf-lib=%s" % spec["lhapdf5"].prefix.lib,
+                # must be enabled or some GENIE 2 versions fail to link
+                # this option was removed in GENIE 3
+                "--enable-rwght",
             ]
         else:
             args += [

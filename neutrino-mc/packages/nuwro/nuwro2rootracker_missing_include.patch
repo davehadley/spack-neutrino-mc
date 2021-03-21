@@ -1,0 +1,10 @@
+--- src/nuwro2rootracker.cc	2020-02-26 09:35:59.000000000 +0000
++++ src/nuwro2rootracker.cc.modified	2021-03-21 20:22:42.927120279 +0000
+@@ -20,6 +20,7 @@
+ #include "TTree.h"
+ #include "TFile.h"
+ #include "TBits.h"
++#include "TObjString.h"
+ #include "pdg.h"
+ #include "generatormt.h"
+ 

@@ -22,10 +22,9 @@ build_genie:
   stage: build
   timeout: 1d
   script:
-    - spack install genie@${GENIE_VERSION}+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
-  parallel:
-    matrix:
-      - GENIE_VERSION: ["3.0.6", "2.12.10", "2.8.6"]
+    - spack install genie@3.0.6+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
+    - spack install genie@2.12.10+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
+    - spack install genie@2.8.6+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
   only:
     - merge_requests
   except:

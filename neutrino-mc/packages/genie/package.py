@@ -136,7 +136,7 @@ class Genie(Package):  # Genie doesn"t use Autotools
     # Spack's concretizer fails with "unsatisfiable constraint" if we don't add this.
     depends_on("cmake@3:")
 
-    patch("genie_make_files.patch", level=0, when="@2.12:")
+    patch("genie_make_files.patch", level=0, when="@2.10:")
 
     # Flags for GENIE"s optional but disabled by default features
     variant(

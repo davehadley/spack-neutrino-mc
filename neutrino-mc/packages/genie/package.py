@@ -181,7 +181,6 @@ class Genie(Package):  # Genie doesn"t use Autotools
 
     def configure_args(self, spec, prefix):
         args = [
-            "--enable-lhapdf6",
             "--prefix=%s" % prefix,
             "--with-compiler=%s" % os.environ["CC"],
             "--with-libxml2-inc=%s%slibxml2" % (spec["libxml2"].prefix.include, os.sep),
@@ -192,6 +191,7 @@ class Genie(Package):  # Genie doesn"t use Autotools
         ]
         if self.spec.satisfies("@:2"):
             args += [
+                "--enable-lhapdf",
                 "--with-lhapdf-inc=%s" % spec["lhapdf5"].prefix.include,
                 "--with-lhapdf-lib=%s" % spec["lhapdf5"].prefix.lib,
                 # must be enabled or some GENIE 2 versions fail to link
@@ -200,6 +200,7 @@ class Genie(Package):  # Genie doesn"t use Autotools
             ]
         else:
             args += [
+                "--enable-lhapdf6",
                 "--with-lhapdf6-inc=%s" % spec["lhapdf"].prefix.include,
                 "--with-lhapdf6-lib=%s" % spec["lhapdf"].prefix.lib,
             ]

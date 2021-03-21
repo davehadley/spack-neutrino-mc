@@ -1,6 +1,6 @@
 import os
 
-from spack.directives import depends_on, patch, variant, version
+from spack.directives import conflicts, depends_on, patch, variant, version
 from spack.package import Package
 from spack.util.executable import Executable
 
@@ -166,6 +166,8 @@ class Genie(Package):  # Genie doesn"t use Autotools
         default=False,
         description="Enable GENIE neutrino masterclass app",
     )
+
+    conflicts("+test", when="@2.8.6:2.8.6", msg="Tests in GENIE 2.8.6 don't build.")
 
     phases = ["configure", "build", "install"]
 

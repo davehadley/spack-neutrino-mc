@@ -17,35 +17,35 @@ class Nuwro(MakefilePackage):
     ]
 
     version(
-        "19.02.2",
+        "19.2.2",
         sha256="e6edf0cd3d9ae22261193ec9ee56f6a0bee5fbeae684f92361f091bb7f1fb055",
     )
     version(
-        "19.02.1",
+        "19.2.1",
         sha256="66ec5ce8be747e821edf2e784fe579226c73301a886b0805410d929b61a90371",
     )
     version(
-        "19.02",
+        "19.2.0",
         sha256="6b5dd5419fc43c3df9fc3c976180fffe24e48478502acdb86b4af8cc0f55e94f",
     )
     version(
-        "18.02.1",
+        "18.2.1",
         sha256="4d3324207e1ff7192905b80dc0d422028ac06f1681c84430d8c33f6626a09c67",
     )
     version(
-        "18.02",
+        "18.2.0",
         sha256="f98f5073ed3b1d21604ffd3ec1e2ca907a15aacd69c8e813526e3d2fd40b2ebc",
     )
     version(
-        "17.09",
+        "17.9.0",
         sha256="350fa6043fa39253afad30bbcb655bde7d85b641843344aa978faca32535456d",
     )
     version(
-        "17.01.1",
+        "17.1.1",
         sha256="5071d9d1495b780060215729bf7c52e1db0f26a213a1c25b5f7c99d43af97f65",
     )
     version(
-        "17.01",
+        "17.1.0",
         sha256="bbbf73bc3c7436fb2fd28c7df538b4e20ad3f2f90a6c1c72f739f14a2ab8cf64",
     )
 
@@ -58,6 +58,12 @@ class Nuwro(MakefilePackage):
     # Missing include directive in nuwro2rootracker.cc causes compilation failure with
     # some versions of ROOT
     patch("nuwro2rootracker_missing_include.patch", level=0)
+
+    def url_for_version(self, version):
+        return (
+            "https://github.com/NuWro/nuwro/archive/refs/tags/"
+            "nuwro_{0}.{1:02d}.{2}.tar.gz".format(version[0], version[1], version[2])
+        )
 
     @property
     def build_targets(self):

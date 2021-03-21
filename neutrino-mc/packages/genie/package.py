@@ -1,11 +1,8 @@
-# from spack import AutotoolsPackage, depends_on, version
 import os
 
 from spack.directives import depends_on, patch, variant, version
 from spack.package import Package
 from spack.util.executable import Executable
-
-# from llnl.util.filesystem import FileFilter
 
 
 class Genie(Package):  # Genie doesn"t use Autotools
@@ -136,6 +133,7 @@ class Genie(Package):  # Genie doesn"t use Autotools
     # Spack's concretizer fails with "unsatisfiable constraint" if we don't add this.
     depends_on("cmake@3:")
 
+    # TODO: rename me
     patch("genie_make_files.patch", level=0, when="@2.11:")
 
     # Flags for GENIE"s optional but disabled by default features
@@ -150,12 +148,8 @@ class Genie(Package):  # Genie doesn"t use Autotools
         description="GENIE physics model validation tools",
     )
     variant("test", default=False, description="Enable test programs")
-    variant(
-        "t2k", default=False, description="Enable Enables T2K-specific generation app"
-    )
-    variant(
-        "fnal", default=False, description="Enable Enables T2K-specific generation app"
-    )
+    variant("t2k", default=False, description="Enable T2K-specific generation app")
+    variant("fnal", default=False, description="Enable T2K-specific generation app")
     variant(
         "atmo",
         default=False,
@@ -172,14 +166,35 @@ class Genie(Package):  # Genie doesn"t use Autotools
         description="Enable GENIE neutrino masterclass app",
     )
 
-    phases = ["edit", "configure", "build", "install"]
+    phases = ["configure", "build", "install"]
+
+    def setup_build_environment(self, env):
+        env.set("GENIE", self.stage.source_path)
+        return super(Genie, self).setup_build_environment(env)
+
+    def setup_run_environment(self, env):
+        env.set("GENIE", self.prefix)
+        return super(Genie, self).setup_run_environment(env)
 
     def configure(self, spec, prefix):
         configure = Executable("./configure")
-        args = self.configure_args(spec, prefix)
+        args = self._configure_args(spec, prefix)
         configure(*args)
 
-    def configure_args(self, spec, prefix):
+    def build(self, spec, prefix):
+        # parallel build is not supported on GENIE 2
+        self._make(parallel=spec.satisfies("@3:"))
+
+    def install(self, spec, prefix):
+        # GENIE make install does not support parallel jobs
+        self._make("install", parallel=False)
+        # GENIE requires these files to be present at runtime, but doesn"t install them
+        # so we must install them ourselves
+        # install_tree function is injected into scope by spack build_environment.py
+        install_tree("config", os.sep.join((prefix, "config")))  # noqa
+        install_tree("data", os.sep.join((prefix, "data")))  # noqa
+
+    def _configure_args(self, spec, prefix):
         args = [
             "--prefix=%s" % prefix,
             "--with-compiler=%s" % os.environ["CC"],
@@ -222,41 +237,10 @@ class Genie(Package):  # Genie doesn"t use Autotools
             args += ["--enable-masterclass"]
         return args
 
-    def edit(self, spec, prefix):
-        # makefile = FileFilter("src/make/Make.include")
-        # makefile.filter(r"CC = gcc",  "CC = dummygcccommand")
-        # makefile.filter(r"CXX = g\+\+", "CXX = dummygxxcommand")
-        # makefile.filter(r"LD  = g\+\+", "LD = dummyldcommand")
-        pass
-
-    def build(self, spec, prefix):
-        # make is injected by build_environment:
-        # https://spack.readthedocs.io/en/latest/spack.html#module-spack.build_environment
-        # apparently this is considered more readable
-        self._make(parallel=spec.satisfies("@3:"))
-
-    def install(self, spec, prefix):
-        # GENIE make install support parallel jobs
-        self._make("install", parallel=False)
-        # GENIE requires these files to be present at runtime, but doesn"t install them
-        # so we must install them ourselves
-        install_tree("config", os.sep.join((prefix, "config")))  # noqa
-        install_tree("data", os.sep.join((prefix, "data")))  # noqa
-
-    def setup_build_environment(self, env):
-        env.set("GENIE", self.stage.source_path)
-        return super().setup_build_environment(env)
-
-    def setup_run_environment(self, env):
-        env.set("GENIE", self.prefix)
-        return super().setup_run_environment(env)
-
     def _make(self, *args, **kwargs):
-        # make is injected by build_environment:
-        # https://spack.readthedocs.io/en/latest/spack.html#module-spack.build_environment
-        # apparently this is considered more readable
         parallel = kwargs.get("parallel", False)
         args = list(self._make_args) + list(args)
+        # make function is injected into scope by spack build_environment.py
         make(*args, parallel=parallel)  # noqa
 
     @property

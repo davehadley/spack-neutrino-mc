@@ -1,0 +1,32 @@
+image: ubuntu:latest
+
+variables:
+  GENIE_VERSION: "3.0.6"
+  GIT_SUBMODULE_STRATEGY: recursive
+
+before_script:
+  - echo "Install apt packages"
+  - apt-get update && apt install -y build-essential wget curl python3 gfortran 
+  - echo "-- Working Directory"
+  - pwd
+  - echo "-- Directory Contents"
+  - ls
+  - echo "-- Setup Spack"
+  - export SPACK_ROOT=$(pwd)/spack
+  - ./install.sh
+  - . spack/share/spack/setup-env.sh
+  - echo "-- Environment Variables"
+  - env
+
+build_genie:
+  stage: build
+  timeout: 1d
+  script:
+    - spack install genie@3.0.6+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
+    - spack install genie@2.12.10+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
+    - spack install genie@2.8.6+test+vleextension+validationtools+t2k+fnal+atmo+nucleondecay+masterclass
+  only:
+    - merge_requests
+  except:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "develop"

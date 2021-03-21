@@ -6,7 +6,7 @@ from spack.util.executable import Executable
 
 
 class Genie(Package):  # Genie doesn"t use Autotools
-    """Genie Neutrino MC Generator."""
+    """Genie is a neutrino Monte Carlo Generator."""
 
     homepage = "https://www.genie-mc.org"
     url = "https://github.com/GENIE-MC/Generator/archive/R-3_00_06.tar.gz"
@@ -15,7 +15,7 @@ class Genie(Package):  # Genie doesn"t use Autotools
     tags = ["neutrino", "hep"]
 
     maintainers = [
-        # maintainer of this recipe, not affliated with GENIE collaboration
+        # maintainer of this recipe, not affliated with the GENIE collaboration
         "davehadley",
     ]
 
